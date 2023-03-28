@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router";
+import List from "./components/List";
 import Loading from "./components/Loading";
 import Navbar from "./Navbar";
 
@@ -29,7 +30,7 @@ export default function DoctorDashboard() {
                 setTimeout(() => {
                     setPatients(pats)
                     setIsLoading(false)
-                }, 2000)
+                }, 1000)
             })
             .catch(error => console.log('error', error));
         }
@@ -44,16 +45,11 @@ export default function DoctorDashboard() {
             <Navbar />
             {
                 isUserLoggedIn && (
-                    <div style={{padding: '0px 100px 0px 100px', backgroundColor: 'lightgray'}}>
+                    <div style={{padding: '0px 100px 0px 100px'}}>
                         { isLoading && <Loading /> }
-                        { patients?.map((patient) => {
-                            return (
-                                <div style={{listStyle: 'none', border: '1px solid black'}} onClick={() => handleClick(patient)}>
-                                    <li>{patient.name}</li>
-                                    <li>{patient.email}</li>
-                                    <li>{patient.age}</li>
-                                </div>)
-                        }) }
+                        <div className="w-9/12 mx-auto">
+                            { (!isLoading && patients) && <List list={patients} />}
+                        </div>
                     </div>
                 )
             }

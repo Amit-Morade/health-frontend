@@ -22,7 +22,7 @@ export default function PatientDetail() {
 
     return (
         <div>
-            <p>{ patient?.name }</p>
+            
         </div>
     )
 }

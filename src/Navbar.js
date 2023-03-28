@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import AccountMenu from "./components/AccountMenu";
 import Logo from './school.png';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const token = useRef(null);
+    
 
     useEffect(() => {
         const loginToken = localStorage.getItem('logintoken') 
@@ -47,15 +50,14 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="flex flex-row justify-between px-16 items-center py-2 border-b-2">
+        <nav className="flex flex-row justify-between px-4 lg:px-16 items-center py-2 border-b-2">
             <div className="flex flex-col items-center cursor-pointer">
                 <img className="w-8" src={Logo} alt="university"/>
                 <h3>University Health Center</h3>
             </div>
             <div>
                 <ul className="flex">
-                    <li className="p-2"><Link to="/about/profile">Profile</Link></li>
-                    <li className="p-2"><button onClick={logoutUser}>Logout</button></li>
+                    <AccountMenu logoutUser={logoutUser}/>
                 </ul>
             </div>
         </nav>

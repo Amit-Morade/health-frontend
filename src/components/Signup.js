@@ -7,6 +7,7 @@ export default function Signup() {
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
+    const [role, setRole] = useState("doctor")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,8 +29,10 @@ export default function Signup() {
             "email": email,
             "password": password,
             "age": age,
-            "role": "doctor"
+            "role": role
         });
+
+        console.log(raw)
 
         var requestOptions = {
         method: 'POST',
@@ -93,6 +96,10 @@ export default function Signup() {
                       placeholder="Enter your password" 
                       className="border rounded mb-4 p-1 outline-none w-52 text-sm"
                     />
+                    <select onChange={(event) => setRole(event.target.value)}>
+                      <option value="doctor">Doctor</option>
+                      <option value="patient">Patient</option>
+                    </select>
                     <div>
                       <button type="submit" className="border rounded mb-6 px-4 py-2 text-sm font-medium">Sing Up</button>
                     </div>

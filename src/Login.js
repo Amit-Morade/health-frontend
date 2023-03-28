@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loggedInUserSelector, setUser } from "./features/loggedInUserSlice";
 
 export default function Login() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+
  
     useEffect(() => {
       document.title = "Login Page"
@@ -42,6 +46,7 @@ export default function Login() {
         .then(response => response.json())
         .then(({user, token}) => {
             if(user) {
+              dispatch(setUser(user))
               console.log(user)
               localStorage.setItem('logintoken', token)
               alert(`user ${user.name} is logged in successfully`)
@@ -50,6 +55,7 @@ export default function Login() {
               }else {
                 navigate('/home', {replace: true}) 
               }
+
               
             }
         })
